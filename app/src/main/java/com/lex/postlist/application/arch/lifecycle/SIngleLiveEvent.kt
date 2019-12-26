@@ -1,8 +1,8 @@
-package android.arch.lifecycle
+package androidx.lifecycle
 
-import android.support.annotation.MainThread
-import android.support.annotation.Nullable
 import android.util.Log
+import androidx.annotation.MainThread
+import androidx.annotation.Nullable
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -18,8 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 open class SingleLiveEvent<T> : MutableLiveData<T>() {
     private val mPending = AtomicBoolean(false)
 
-    @MainThread
-    override fun observe(owner: LifecycleOwner, observer: Observer<T>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         if (hasActiveObservers()) {
             Log.w(TAG, "Multiple observers registered but only one will be notified of changes.")
         }
@@ -32,10 +31,9 @@ open class SingleLiveEvent<T> : MutableLiveData<T>() {
         })
     }
 
-    private var foreverObserver: Observer<T>? = null
+    private var foreverObserver: Observer<in T>? = null
     private var innerForeverObserver: Observer<T>? = null
-
-    override fun observeForever(observer: Observer<T>) {
+    override fun observeForever(observer: Observer<in T>) {
         foreverObserver = observer
         innerForeverObserver = Observer {
             if (mPending.compareAndSet(true, false)) {
@@ -45,7 +43,7 @@ open class SingleLiveEvent<T> : MutableLiveData<T>() {
         super.observeForever(innerForeverObserver!!)
     }
 
-    override fun removeObserver(observer: Observer<T>) {
+    override fun removeObserver(observer: Observer<in T>) {
         super.removeObserver(observer)
         if (observer == foreverObserver && innerForeverObserver != null) {
             removeObserver(innerForeverObserver!!)
@@ -53,6 +51,7 @@ open class SingleLiveEvent<T> : MutableLiveData<T>() {
             innerForeverObserver = null
         }
     }
+
 
     @MainThread
     override fun setValue(@Nullable t: T?) {

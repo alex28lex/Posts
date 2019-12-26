@@ -2,9 +2,9 @@ package com.lex.postlist.screen.posts.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
 import com.kotterknife.KotterKnife
@@ -22,7 +22,7 @@ import com.lex.postlist.screen.posts.view.ViewStatePosts
 
 class PostsActivity : AppCompatActivity() {
 
-    private val recyclerView by bindView<RecyclerView>(R.id.recyclerView)
+    private val recyclerView by bindView<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerView)
     private val progressView by bindView<View>(R.id.progressView)
 
     private lateinit var viewModel: PostsViewModel
@@ -37,7 +37,7 @@ class PostsActivity : AppCompatActivity() {
         viewModel = getViewModel()
         recyclerView.apply {
             adapter = postsAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 
         }
         with(viewModel) {

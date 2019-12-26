@@ -1,6 +1,6 @@
 package com.lex.postlist.screen.posts.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,7 +9,7 @@ import com.lex.postlist.application.util.inflate
 import com.lex.postlist.model.viewobject.PostVo
 
 
-open class PostViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+open class PostViewHolder constructor(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
     private val bodyText: TextView = itemView.findViewById(R.id.textBody)
     private val titleText: TextView = itemView.findViewById(R.id.textTitle)
 

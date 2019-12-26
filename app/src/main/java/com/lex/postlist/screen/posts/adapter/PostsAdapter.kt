@@ -1,11 +1,11 @@
 package com.lex.postlist.screen.posts.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.lex.postlist.model.viewobject.PostVo
 
 
-class PostsAdapter : RecyclerView.Adapter<PostViewHolder>() {
+class PostsAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<PostViewHolder>() {
     var posts: ArrayList<PostVo> = ArrayList()
 
     fun addData(posts: List<PostVo>) {

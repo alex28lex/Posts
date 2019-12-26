@@ -1,8 +1,8 @@
 package com.lex.postlist.screen.posts.presenter
 
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.SingleLiveEvent
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.SingleLiveEvent
+import androidx.lifecycle.ViewModel
 import android.os.Parcelable
 import com.lex.postlist.application.di.AppComponentHolder
 import com.lex.postlist.model.datasource.rest.constant.RestConsts

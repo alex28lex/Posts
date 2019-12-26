@@ -1,14 +1,14 @@
 package com.lex.postlist.screen.posts
 
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lex.postlist.model.datasource.rest.constant.RestConsts
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 
 open class RxPagination private constructor(
-        private val recyclerView: RecyclerView,
+        private val recyclerView: androidx.recyclerview.widget.RecyclerView,
         private var page: Int,
         private val pageSize: Int,
         private val gap: Int
@@ -16,7 +16,7 @@ open class RxPagination private constructor(
     private var emitted: Boolean = false
 
     companion object {
-        fun with(recyclerView: RecyclerView): RxPagination {
+        fun with(recyclerView: androidx.recyclerview.widget.RecyclerView): RxPagination {
             return RxPagination(
                     recyclerView,
                     RestConsts.PAGE_START,
@@ -25,7 +25,7 @@ open class RxPagination private constructor(
             )
         }
 
-        fun with(recyclerView: RecyclerView, page: Int): RxPagination {
+        fun with(recyclerView: androidx.recyclerview.widget.RecyclerView, page: Int): RxPagination {
             return RxPagination(
                     recyclerView,
                     page,
@@ -34,7 +34,7 @@ open class RxPagination private constructor(
             )
         }
 
-        fun with(recyclerView: RecyclerView, page: Int, additionalElements: Int): RxPagination {
+        fun with(recyclerView: androidx.recyclerview.widget.RecyclerView, page: Int, additionalElements: Int): RxPagination {
             return RxPagination(
                     recyclerView,
                     page,
@@ -47,9 +47,9 @@ open class RxPagination private constructor(
 
     fun observePageChanges(): Observable</*Page*/Int> {
         return Observable.create { emitter ->
-            if (recyclerView.layoutManager is LinearLayoutManager || recyclerView.layoutManager is GridLayoutManager) {
+            if (recyclerView.layoutManager is androidx.recyclerview.widget.LinearLayoutManager || recyclerView.layoutManager is androidx.recyclerview.widget.GridLayoutManager) {
 
-                var onScrollListener: RecyclerView.OnScrollListener? = null
+                var onScrollListener: androidx.recyclerview.widget.RecyclerView.OnScrollListener? = null
                 val adapter = recyclerView.adapter
                 var dataObserver: RxPaginationAdapterDataObserver? = null
                 if (adapter != null) {
@@ -61,13 +61,13 @@ open class RxPagination private constructor(
 
                     adapter.registerAdapterDataObserver(dataObserver)
                 }
-                val layoutManager = if (recyclerView.layoutManager is LinearLayoutManager) {
-                    recyclerView.layoutManager as LinearLayoutManager
+                val layoutManager = if (recyclerView.layoutManager is androidx.recyclerview.widget.LinearLayoutManager) {
+                    recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager
                 } else {
-                    recyclerView.layoutManager as GridLayoutManager
+                    recyclerView.layoutManager as androidx.recyclerview.widget.GridLayoutManager
                 }
-                onScrollListener = object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                onScrollListener = object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                         super.onScrolled(recyclerView, dx, dy)
 
                         if (emitted) {
@@ -117,7 +117,7 @@ open class RxPagination private constructor(
     class IllegalLayoutManagerException :
             RuntimeException("LayoutManager must be LinearLayoutManager")
 
-    abstract class RxPaginationAdapterDataObserver : RecyclerView.AdapterDataObserver() {
+    abstract class RxPaginationAdapterDataObserver : androidx.recyclerview.widget.RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
             onDataChanged()
         }
